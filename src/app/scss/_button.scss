@@ -1,0 +1,33 @@
+@import "theme.scss";
+button {
+	$margin: 10px;
+	margin-bottom: $margin;
+	margin-top: $margin;
+	$light: white;
+	$padding: 15px;
+	display: block;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background-color: $light;
+	height: 50px;
+	border-radius: 20px;
+	font-size: 20px;
+	line-height: 20px;
+	font-weight: 600;
+	color: $primary;
+	background-size: 100% 100%;
+	box-shadow: 2px 6px 9px #00000034;
+	padding-left: $padding;
+	padding-right: $padding;
+	&:hover {
+		background-color: $primary;
+		color: $light;
+	}
+}
+.btnDiv {
+	.label {
+		text-align: center;
+		width: inherit;
+	}
+}
