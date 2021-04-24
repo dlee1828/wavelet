@@ -21,8 +21,8 @@ button {
 	padding-left: $padding;
 	padding-right: $padding;
 	&:hover {
-		background-color: $primary;
-		color: $light;
+		background-color: $hover;
+		transition: background $hoverTansitionSpeed ease-in-out;
 	}
 }
 .btnDiv {

@@ -1,0 +1,38 @@
+.buttonGroup {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	.title {
+		font-size: 20px;
+		margin-bottom: 10px;
+		width: $sliderWidth;
+		text-align: center;
+	}
+	.buttonRow {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		.buttonGroupButton {
+			margin: 0px;
+			border-radius: 0px;
+			width: 140px;
+		}
+		.leftBottom {
+			border-bottom-left-radius: 20px;
+		}
+		.leftTop {
+			border-top-left-radius: 20px;
+		}
+		.rightBottom {
+			border-bottom-right-radius: 20px;
+		}
+		.rightTop {
+			border-top-right-radius: 20px;
+		}
+		.selected {
+			color: white;
+			background-color: $primary;
+		}
+	}
+}

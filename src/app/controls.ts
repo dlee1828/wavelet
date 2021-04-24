@@ -19,6 +19,19 @@ export const controls = {
 		max: 2000,
 		initialValue: 500,
 		step: 10,
+	},
+	filterType: {
+		title: "",
+		names: [
+			"low-pass",
+			"high-pass",
+			"band-pass",
+			"low-shelf",
+			"high-shelf",
+			"peaking",
+			"band-stop",
+			"all-pass",
+		]
 	}
 }
 

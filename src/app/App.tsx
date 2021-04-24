@@ -4,8 +4,10 @@ import './styles/style.scss';
 import SetAudio from './sound';
 import Slider from './Slider';
 import { FiPlay, FiPause } from 'react-icons/fi';
-import { BsFillPlayFill } from 'react-icons/bs';
+import { BsFillPlayFill, BsToggleOff } from 'react-icons/bs';
 import { controls } from './controls';
+import { ButtonGroup } from './ButtonGroup';
+import { Toggle } from './Toggle';
 
 function App() {
 	const audioRef = useRef<HTMLAudioElement>(null);
@@ -102,11 +104,14 @@ function App() {
 				<button className="playPauseButton" style={{ borderRadius: '25px', color: playing ? 'rgb(228, 105, 105)' : 'white', backgroundColor: playing ? 'white' : 'rgb(228, 105, 105)' }} onClick={onPlay}> {playing ? <FiPause></FiPause> : <BsFillPlayFill></BsFillPlayFill>}</button>
 				<div className="controlsContainer">
 					<div className="controlsColumn">
+						{/* <Slider obj={controls.panning} onChange={(e) => handlePanningChange(e)}></Slider> */}
 						<Slider obj={controls.filterFrequency} onChange={(e) => handleFrequencyChange(e)}></Slider>
+						<Toggle title="Filter"></Toggle>
+						<ButtonGroup obj={controls.filterType} ></ButtonGroup>
 					</div>
-					<div className="controlsColumn">
+					{/* <div className="controlsColumn">
 						<Slider obj={controls.panning} onChange={(e) => handlePanningChange(e)}></Slider>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
