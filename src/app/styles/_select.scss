@@ -1,0 +1,21 @@
+@import "theme";
+select {
+	-webkit-appearance: none;
+	background-color: $light;
+	text-align: center;
+	color: $primary;
+	padding: 12px;
+	width: 200px;
+	border: none;
+	font-size: 20px;
+	font-weight: bold;
+	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+	border-radius: 20px;
+	// appearance: button;
+	outline: none;
+	&:hover {
+		transition: background $hoverTansitionSpeed ease-in-out;
+		background-color: $hover;
+		cursor: pointer;
+	}
+}

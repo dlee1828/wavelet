@@ -13,7 +13,7 @@ input[type="checkbox"] {
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
-	margin-bottom: 10px;
+	margin-bottom: 25px;
 }
 .title {
 	font-size: 20px;
@@ -28,7 +28,8 @@ input[type="checkbox"] {
 	position: relative;
 	margin: 0;
 	border: 2px solid $light;
-	background: linear-gradient(180deg, #2d2f39 0%, #1f2027 100%);
+	background: $dark;
+	//  linear-gradient(180deg, #2d2f39 0%, #1f2027 100%);
 	transition: all 0.2s ease;
 	&:after {
 		content: "";
@@ -43,7 +44,7 @@ input[type="checkbox"] {
 		transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
 	}
 	&:checked {
-		border-color: $primary;
+		border-color: $light;
 		background-color: $primary;
 		&:after {
 			transform: translatex(28px);

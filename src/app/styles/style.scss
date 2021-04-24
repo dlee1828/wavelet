@@ -3,6 +3,7 @@
 @import "button.scss";
 @import "buttonGroup.scss";
 @import "toggle.scss";
+@import "select";
 
 body {
 	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
@@ -32,12 +33,20 @@ body {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		.fileUploadArea {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-around;
+			align-items: center;
+		}
 		.controlsContainer {
+			width: 1200px;
 			margin-top: 50px;
 			display: flex;
 			flex-direction: row nowrap;
-			align-items: center;
+			justify-content: center;
 			.controlsColumn {
+				width: 50%;
 				$margin: 30px;
 				display: flex;
 				flex-flow: column nowrap;

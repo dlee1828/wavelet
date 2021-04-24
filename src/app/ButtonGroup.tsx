@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/style.scss"
 
 type ButtonGroupProps = {
 	obj: {
 		names: string[],
 		title: string,
+		initial: string,
 	}
-	// onChange: (x: any) => void,
+	onChange: (x: any) => void,
+	filterOn: boolean,
 }
 
 // 8-button group	
 export function ButtonGroup(props: ButtonGroupProps) {
-	const [filterType, setFilterType] = useState("low-pass")
+	const [filterType, setFilterType] = useState(props.obj.initial)
+	const [filterOn, setFilterOn] = useState(props.filterOn);
 
 	const obj = props.obj;
 
@@ -20,6 +23,7 @@ export function ButtonGroup(props: ButtonGroupProps) {
 
 	function handleClick(name: string) {
 		setFilterType(name);
+		props.onChange(name);
 	}
 
 	return (

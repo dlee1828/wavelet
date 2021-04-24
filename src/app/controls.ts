@@ -1,38 +1,35 @@
 export const controls = {
-	gain: {
-		title: "Gain",
-		min: 0,
-		max: 3,
-		step: 0.01,
-		initialValue: 1,
-	},
 	panning: {
 		title: "Panning",
 		min: -1,
 		max: 1,
-		step: 0.01,
-		initialValue: 0,
+		step: 0.05,
+		initial: 0,
+		unit: "",
 	},
 	filterFrequency: {
-		title: "Filter Frequency",
+		title: "",
 		min: 0,
 		max: 2000,
-		initialValue: 500,
+		initial: 500,
 		step: 10,
+		unit: "Hz",
 	},
 	filterType: {
 		title: "",
+		initial: "lowpass",
 		names: [
-			"low-pass",
-			"high-pass",
-			"band-pass",
-			"low-shelf",
-			"high-shelf",
+			"lowpass",
+			"highpass",
+			"bandpass",
+			"lowshelf",
+			"highshelf",
 			"peaking",
-			"band-stop",
-			"all-pass",
-		]
-	}
+			"notch",
+			"allpass",
+		],
+		unit: "",
+	},
 }
 
 
