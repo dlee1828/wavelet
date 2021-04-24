@@ -1,10 +1,6 @@
 export const songs = [
 	{
-		name: "Choose a sample",
-		value: "",
-	},
-	{
-		name: "Bright",
+		name: "Echosmith - Bright",
 		value: "bright.mp3",
 	}
 ]

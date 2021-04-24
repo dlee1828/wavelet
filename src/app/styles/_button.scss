@@ -20,8 +20,14 @@ button {
 	box-shadow: 2px 6px 9px #00000034;
 	padding-left: $padding;
 	padding-right: $padding;
+	transition: background $hoverTansitionSpeed ease-in-out;
 	&:hover {
 		background-color: $hover;
+		transition: background $hoverTansitionSpeed ease-in-out;
+	}
+	&:disabled {
+		background-color: $disabledBackground !important;
+		color: $disabledColor !important;
 		transition: background $hoverTansitionSpeed ease-in-out;
 	}
 }

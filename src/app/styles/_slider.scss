@@ -43,6 +43,9 @@ input[type="range"] {
 			background-color: $primary;
 			transition: background $hoverTansitionSpeed ease-in-out;
 		}
+		&:disabled {
+			background-color: $disabledColor;
+		}
 	}
 	&::-moz-range-thumb {
 		box-shadow: none;
@@ -58,6 +61,9 @@ input[type="range"] {
 		&:hover {
 			background-color: $primary;
 			// transition: background $hoverTansitionSpeed ease-in-out;
+		}
+		&:disabled {
+			background-color: $disabledColor;
 		}
 	}
 	&::-moz-focus-outer {

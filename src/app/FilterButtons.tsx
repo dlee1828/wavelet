@@ -9,10 +9,11 @@ type ButtonGroupProps = {
 	}
 	onChange: (x: any) => void,
 	filterOn: boolean,
+	disabled?: boolean,
 }
 
 // 8-button group	
-export function ButtonGroup(props: ButtonGroupProps) {
+export function FilterButtons(props: ButtonGroupProps) {
 	const [filterType, setFilterType] = useState(props.obj.initial)
 	const [filterOn, setFilterOn] = useState(props.filterOn);
 
@@ -37,7 +38,7 @@ export function ButtonGroup(props: ButtonGroupProps) {
 						if (index == row1.length - 1) className += " rightTop";
 						if (title == filterType) className += " selected";
 						return (
-							<button onClick={() => handleClick(title)} className={className} key={index}>{title}</button>
+							<button disabled={props.disabled} onClick={() => handleClick(title)} className={className} key={index}>{title}</button>
 						)
 					})
 				}
@@ -51,7 +52,7 @@ export function ButtonGroup(props: ButtonGroupProps) {
 						if (index == row2.length - 1) className += " rightBottom";
 						if (title == filterType) className += " selected";
 						return (
-							<button onClick={() => handleClick(title)} className={className} key={index}>{title}</button>
+							<button disabled={props.disabled} onClick={() => handleClick(title)} className={className} key={index}>{title}</button>
 						)
 					})
 				}

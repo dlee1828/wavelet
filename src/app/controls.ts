@@ -30,6 +30,24 @@ export const controls = {
 		],
 		unit: "",
 	},
+	reverbType: {
+		title: "Reverb",
+		initial: "none",
+		names: [
+			"none",
+			"basement",
+			"bandpass",
+			"lowshelf",
+			"highshelf",
+			"peaking",
+			"notch",
+			"allpass",
+		],
+		unit: "",
+	},
+	reverbPaths: {
+		basement: 'basement.mp4',
+	}
 }
 
 
