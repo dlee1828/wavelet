@@ -10,6 +10,7 @@ import { storage } from '..';
 import { songs } from './songs';
 import { Select } from './Select';
 import { ReverbButtons } from './ReverbButtons';
+import { isWindow } from 'jquery';
 
 declare global {
 	interface Window {
@@ -18,6 +19,7 @@ declare global {
 		filterNode: BiquadFilterNode;
 		reverbNode: ConvolverNode;
 		pannerNode: StereoPannerNode;
+		gainNode: GainNode;
 	}
 }
 
@@ -34,6 +36,7 @@ function App() {
 	const [filterFrequency, setFilterFrequency] = useState(controls.filterFrequency.initial);
 	const [filterType, setFilterType] = useState(controls.filterType.initial as BiquadFilterType);
 	const [reverbType, setReverbType] = useState("none");
+	const [gain, setGain] = useState(controls.gain.initial);
 
 	// AUDIO NODE SETUP
 
@@ -59,7 +62,6 @@ function App() {
 			if (window.sourceNode == null) {
 				window.sourceNode = window.audioContext.createMediaElementSource(audioRef.current!);
 			}
-
 			const pannerOptions = { pan: 0 };
 			if (window.pannerNode == null) {
 				window.pannerNode = new StereoPannerNode(window.audioContext, pannerOptions);
@@ -67,17 +69,21 @@ function App() {
 			if (window.filterNode == null) {
 				window.filterNode = new BiquadFilterNode(window.audioContext);
 			}
-
-			window.pannerNode.pan.value = panning;
-			window.filterNode.type = filterOn ? filterType : "highpass";
-			window.filterNode.frequency.value = filterOn ? 0 : filterFrequency;
-			window.filterNode.gain.value = 8;
 			if (window.reverbNode == null) {
 				window.reverbNode = window.audioContext.createConvolver();
 			}
+			if (window.gainNode == null) {
+				window.gainNode = window.audioContext.createGain();
+			}
+
+			window.pannerNode.pan.value = panning;
+			window.filterNode.type = filterOn ? filterType : "highpass";
+			window.filterNode.frequency.value = filterOn ? filterFrequency : 0;
+			window.filterNode.gain.value = 8;
+			window.gainNode.gain.value = gain;
 
 			if (reverbType == "none") {
-				window.sourceNode!.connect(window.pannerNode).connect(window.filterNode).connect(window.audioContext.destination);
+				window.sourceNode.connect(window.gainNode).connect(window.pannerNode).connect(window.filterNode).connect(window.audioContext.destination);
 				return;
 			}
 
@@ -89,7 +95,7 @@ function App() {
 			const arraybuffer = await response.arrayBuffer();
 			window.reverbNode.buffer = await window.audioContext.decodeAudioData(arraybuffer);
 
-			window.sourceNode.connect(window.pannerNode).connect(window.filterNode).connect(window.reverbNode).connect(window.audioContext.destination);
+			window.sourceNode.connect(window.gainNode).connect(window.pannerNode).connect(window.filterNode).connect(window.reverbNode).connect(window.audioContext.destination);
 			// newFilterNode.disconnect();
 			// newReverbNode.disconnect();
 			// newFilterNode.connect(newAudioContext.destination);
@@ -169,6 +175,12 @@ function App() {
 		window.reverbNode.buffer = await window.audioContext!.decodeAudioData(arraybuffer);
 	}
 
+	function handleGainChange(x: number) {
+		setGain(x);
+		if (fileName == "no file") return;
+		window.gainNode.gain.value = x;
+	}
+
 	// PLAY AND UPLOAD BUTTONS
 
 	async function onPlay() {
@@ -195,21 +207,13 @@ function App() {
 
 	// Component functions
 
-	function filterArea() {
+	useEffect(() => {
 		controls.filterFrequency.initial = filterFrequency;
 		controls.filterType.initial = filterType;
 		controls.panning.initial = panning;
-		return (
-			<div style={{ display: 'flex', flexFlow: 'column nowrap', alignItems: 'center' }}>
-				<div style={{ width: "450px", display: 'flex', flexFlow: 'row nowrap', justifyContent: 'space-around', alignItems: 'center' }}>
-					<Slider disabled={!filterOn} obj={controls.filterFrequency} onChange={(e) => handleFrequencyChange(e)}></Slider>
-				</div>
+	}, [filterOn])
 
-				<FilterButtons disabled={!filterOn} filterOn={filterOn} onChange={(x: string) => handleFilterTypeChange(x)} obj={controls.filterType} ></FilterButtons>
-			</div>
 
-		)
-	}
 
 	return (
 		<div className="mainContainer">
@@ -229,8 +233,15 @@ function App() {
 				<button className="playPauseButton" style={{ display: fileName == "no file" ? 'none' : 'block', borderRadius: '25px', color: playing ? 'rgb(228, 105, 105)' : 'white', backgroundColor: playing ? 'white' : 'rgb(228, 105, 105)' }} onClick={onPlay}> {playing ? <FiPause></FiPause> : <BsFillPlayFill></BsFillPlayFill>}</button>
 				<div className="controlsContainer" style={{ display: fileName == "no file" ? 'none' : 'flex' }}>
 					<div className="controlsColumn">
-						<Toggle title="Filter" onToggle={(state: boolean) => handleFilterToggle(state)} ></Toggle>
-						{filterArea()}
+						<Slider obj={controls.gain} onChange={(e) => handleGainChange(e)}></Slider>
+						<div style={{ display: 'flex', marginTop: '20px', flexFlow: 'column nowrap', alignItems: 'center', }}>
+							<div style={{ display: 'flex', justifyContent: 'space-between', width: '130px' }}>
+								<div className="title">Filter</div>
+								<Toggle onToggle={(state: boolean) => handleFilterToggle(state)} ></Toggle>
+							</div>
+							<FilterButtons disabled={!filterOn} filterOn={filterOn} onChange={(x: string) => handleFilterTypeChange(x)} obj={controls.filterType} ></FilterButtons>
+							<Slider disabled={!filterOn} obj={controls.filterFrequency} onChange={(e) => handleFrequencyChange(e)}></Slider>
+						</div>
 					</div>
 					<div className="controlsColumn">
 						<Slider obj={controls.panning} onChange={(e) => handlePanningChange(e)}></Slider>

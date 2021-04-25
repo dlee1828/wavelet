@@ -26,7 +26,7 @@ export function ReverbButtons(props: ButtonGroupProps) {
 	}
 
 	return (
-		<div className="buttonGroup">
+		<div className="buttonGroup" style={{ marginTop: '10px' }}>
 			<div style={{ display: obj.title == "" ? "none" : "block", marginTop: '24px' }} className="title">{obj.title}</div>
 			<div className="buttonRow">
 				{

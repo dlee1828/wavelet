@@ -10,7 +10,7 @@ export const controls = {
 	filterFrequency: {
 		title: "",
 		min: 0,
-		max: 2000,
+		max: 4000,
 		initial: 500,
 		step: 10,
 		unit: "Hz",
@@ -67,6 +67,14 @@ export const controls = {
 				path: "nationalpark.wav",
 			},
 		],
+		unit: "",
+	},
+	gain: {
+		title: "Gain",
+		min: 0,
+		max: 2,
+		step: 0.05,
+		initial: 1,
 		unit: "",
 	},
 }
