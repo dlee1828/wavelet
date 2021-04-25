@@ -37,10 +37,19 @@ function App() {
 
 	// AUDIO NODE SETUP
 
+	function findReverbPath(name: string): string {
+		for (let item of controls.reverbType.spaces) {
+			if (item.name == name) return item.path;
+		}
+		return "NO PATH FOUND";
+	}
+
 	useEffect(() => {
 		async function effect() {
 
 			if (fileName == "no file") return;
+
+			setPlaying(false);
 
 			if (window.audioContext == null) {
 				window.audioContext = new AudioContext();
@@ -52,14 +61,20 @@ function App() {
 			}
 
 			const pannerOptions = { pan: 0 };
-			window.pannerNode = new StereoPannerNode(window.audioContext, pannerOptions);
-			window.filterNode = new BiquadFilterNode(window.audioContext);
+			if (window.pannerNode == null) {
+				window.pannerNode = new StereoPannerNode(window.audioContext, pannerOptions);
+			}
+			if (window.filterNode == null) {
+				window.filterNode = new BiquadFilterNode(window.audioContext);
+			}
 
 			window.pannerNode.pan.value = panning;
 			window.filterNode.type = filterOn ? filterType : "highpass";
 			window.filterNode.frequency.value = filterOn ? 0 : filterFrequency;
 			window.filterNode.gain.value = 8;
-			window.reverbNode = window.audioContext.createConvolver();
+			if (window.reverbNode == null) {
+				window.reverbNode = window.audioContext.createConvolver();
+			}
 
 			if (reverbType == "none") {
 				window.sourceNode!.connect(window.pannerNode).connect(window.filterNode).connect(window.audioContext.destination);
@@ -68,7 +83,7 @@ function App() {
 
 			// Load the impulse response; upon load, connect it to the audio output.
 			let pathReference = storage.ref('');
-			let path = (controls.reverbPaths as any)[reverbType];
+			let path = findReverbPath(reverbType);
 			let url = await pathReference.child(path).getDownloadURL();
 			let response = await fetch(url);
 			const arraybuffer = await response.arrayBuffer();
@@ -145,8 +160,8 @@ function App() {
 		}
 		// Set reverb type
 		setReverbType(x);
-		let path = (controls.reverbPaths as any)[x];
-
+		let path = findReverbPath(x);
+		console.log(path);
 		let pathReference = storage.ref('');
 		let url = await pathReference.child(path).getDownloadURL();
 		let response = await fetch(url);

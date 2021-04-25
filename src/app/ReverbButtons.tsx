@@ -3,7 +3,7 @@ import "./styles/style.scss"
 
 type ButtonGroupProps = {
 	obj: {
-		names: string[],
+		spaces: { name: string, path: string }[],
 		title: string,
 		initial: string,
 	}
@@ -17,8 +17,8 @@ export function ReverbButtons(props: ButtonGroupProps) {
 
 	const obj = props.obj;
 
-	let row1 = obj.names.slice(0, 4);
-	let row2 = obj.names.slice(4, 8);
+	let row1 = obj.spaces.slice(0, 4);
+	let row2 = obj.spaces.slice(4, 8);
 
 	function handleClick(name: string) {
 		setReverbType(name);
@@ -30,13 +30,13 @@ export function ReverbButtons(props: ButtonGroupProps) {
 			<div style={{ display: obj.title == "" ? "none" : "block", marginTop: '24px' }} className="title">{obj.title}</div>
 			<div className="buttonRow">
 				{
-					row1.map((title, index) => {
+					row1.map((item, index) => {
 						let className = "buttonGroupButton";
 						if (index == 0) className += " leftTop";
 						if (index == row1.length - 1) className += " rightTop";
-						if (title == reverbType) className += " selected";
+						if (item.name == reverbType) className += " selected";
 						return (
-							<button disabled={props.disabled} onClick={() => handleClick(title)} className={className} key={index}>{title}</button>
+							<button disabled={props.disabled} onClick={() => handleClick(item.name)} className={className} key={index}>{item.name}</button>
 						)
 					})
 				}
@@ -44,13 +44,13 @@ export function ReverbButtons(props: ButtonGroupProps) {
 			</div>
 			<div className="buttonRow">
 				{
-					row2.map((title, index) => {
+					row2.map((item, index) => {
 						let className = "buttonGroupButton";
 						if (index == 0) className += " leftBottom";
 						if (index == row2.length - 1) className += " rightBottom";
-						if (title == reverbType) className += " selected";
+						if (item.name == reverbType) className += " selected";
 						return (
-							<button disabled={props.disabled} onClick={() => handleClick(title)} className={className} key={index}>{title}</button>
+							<button disabled={props.disabled} onClick={() => handleClick(item.name)} className={className} key={index}>{item.name}</button>
 						)
 					})
 				}

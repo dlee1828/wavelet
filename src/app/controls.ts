@@ -33,21 +33,42 @@ export const controls = {
 	reverbType: {
 		title: "Reverb",
 		initial: "none",
-		names: [
-			"none",
-			"basement",
-			"bandpass",
-			"lowshelf",
-			"highshelf",
-			"peaking",
-			"notch",
-			"allpass",
+		spaces: [
+			{
+				name: "none",
+				path: "",
+			},
+			{
+				name: "basement",
+				path: "basement.mp4",
+			},
+			{
+				name: "mall",
+				path: "SquareVictoriaDome.wav",
+			},
+			{
+				name: "chapel",
+				path: "chapel.mp4",
+			},
+			{
+				name: "living room",
+				path: "livingroom.mp4",
+			},
+			{
+				name: "tunnel",
+				path: "tunnel.wav",
+			},
+			{
+				name: "lecture hall",
+				path: "lecturehall.wav",
+			},
+			{
+				name: "national park",
+				path: "nationalpark.wav",
+			},
 		],
 		unit: "",
 	},
-	reverbPaths: {
-		basement: 'basement.mp4',
-	}
 }
 
 
