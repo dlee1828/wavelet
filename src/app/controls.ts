@@ -10,7 +10,7 @@ export const controls = {
 	filterFrequency: {
 		title: "",
 		min: 0,
-		max: 4000,
+		max: 3000,
 		initial: 500,
 		step: 10,
 		unit: "Hz",

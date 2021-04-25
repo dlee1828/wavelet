@@ -10,7 +10,6 @@ import { storage } from '..';
 import { songs } from './songs';
 import { Select } from './Select';
 import { ReverbButtons } from './ReverbButtons';
-import { isWindow } from 'jquery';
 
 declare global {
 	interface Window {
@@ -96,13 +95,6 @@ function App() {
 			window.reverbNode.buffer = await window.audioContext.decodeAudioData(arraybuffer);
 
 			window.sourceNode.connect(window.gainNode).connect(window.pannerNode).connect(window.filterNode).connect(window.reverbNode).connect(window.audioContext.destination);
-			// newFilterNode.disconnect();
-			// newReverbNode.disconnect();
-			// newFilterNode.connect(newAudioContext.destination);
-
-
-
-
 		}
 
 		effect();
